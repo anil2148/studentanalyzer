@@ -1,0 +1,117 @@
+[
+  {
+    "name": "Alice",
+    "rollNumber": 101,
+    "studentClass": "1st Year",
+    "department": {
+      "deptName": "Computer Science",
+      "hodName": "Dr. Watson"
+    },
+    "hostel": {
+      "hostelName": "Lotus",
+      "wardenName": "Mr. Sharma",
+      "roomNumber": 101
+    },
+    "subjects": [
+      { "name": "Math", "marks": 90 },
+      { "name": "English", "marks": 85 },
+      { "name": "Science", "marks": 95 }
+    ],
+    "history": [
+      { "year": 2023, "gpa": 8.8, "passed": true },
+      { "year": 2022, "gpa": 8.5, "passed": true }
+    ]
+  },
+  {
+    "name": "Bob",
+    "rollNumber": 102,
+    "studentClass": "1st Year",
+    "department": {
+      "deptName": "Electronics and Communication",
+      "hodName": "Dr. Rao"
+    },
+    "hostel": {
+      "hostelName": "Rose",
+      "wardenName": "Mrs. Gupta",
+      "roomNumber": 202
+    },
+    "subjects": [
+      { "name": "Math", "marks": 60 },
+      { "name": "English", "marks": 70 },
+      { "name": "Science", "marks": 65 }
+    ],
+    "history": [
+      { "year": 2023, "gpa": 6.5, "passed": true },
+      { "year": 2022, "gpa": 5.5, "passed": true }
+    ]
+  },
+  {
+    "name": "Carol",
+    "rollNumber": 103,
+    "studentClass": "1st Year",
+    "department": {
+      "deptName": "Computer Science",
+      "hodName": "Dr. Watson"
+    },
+    "hostel": {
+      "hostelName": "Lotus",
+      "wardenName": "Mr. Sharma",
+      "roomNumber": 105
+    },
+    "subjects": [
+      { "name": "Math", "marks": 95 },
+      { "name": "English", "marks": 90 },
+      { "name": "Science", "marks": 100 }
+    ],
+    "history": [
+      { "year": 2023, "gpa": 9.5, "passed": true },
+      { "year": 2022, "gpa": 9.0, "passed": true }
+    ]
+  },
+  {
+    "name": "David",
+    "rollNumber": 104,
+    "studentClass": "2nd Year",
+    "department": {
+      "deptName": "Mechanical",
+      "hodName": "Dr. Sen"
+    },
+    "hostel": {
+      "hostelName": "Tulip",
+      "wardenName": "Mr. Iyer",
+      "roomNumber": 302
+    },
+    "subjects": [
+      { "name": "Thermodynamics", "marks": 88 },
+      { "name": "Mechanics", "marks": 92 },
+      { "name": "Math", "marks": 85 }
+    ],
+    "history": [
+      { "year": 2023, "gpa": 8.7, "passed": true },
+      { "year": 2022, "gpa": 8.2, "passed": true }
+    ]
+  },
+  {
+    "name": "Emma",
+    "rollNumber": 105,
+    "studentClass": "2nd Year",
+    "department": {
+      "deptName": "Electronics and Communication",
+      "hodName": "Dr. Rao"
+    },
+    "hostel": {
+      "hostelName": "Rose",
+      "wardenName": "Mrs. Gupta",
+      "roomNumber": 208
+    },
+    "subjects": [
+      { "name": "Circuits", "marks": 93 },
+      { "name": "Signals", "marks": 89 },
+      { "name": "Math", "marks": 90 }
+    ],
+    "history": [
+      { "year": 2023, "gpa": 9.1, "passed": true },
+      { "year": 2022, "gpa": 8.9, "passed": true }
+    ]
+  }
+]
