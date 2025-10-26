@@ -69,32 +69,27 @@ jobs:
 
           # Connect to EC2 and configure + restart
           ssh -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
-            set -e
-            echo "Creating application.properties dynamically..."
+          set -e
+          echo "Creating application.properties dynamically..."
 
-            cat <<EOT > /home/$USER/application.properties
-            spring.application.name=studentanalyser
-            spring.data.mongodb.uri=${MONGO_URI}
-            spring.data.mongodb.database=student-management
-            server.port=8080
-            server.address=0.0.0.0
-            management.endpoints.web.exposure.include=*
-            management.endpoint.health.show-details=always
-            management.metrics.export.prometheus.enabled=true
-            aws.xray.enabled=true
-            echo "🔍 Checking generated application.properties content:"
-            echo "----------------------------------------------------"
-            cat /home/$USER/application.properties
-            echo "----------------------------------------------------"
-            EOT
+          cat <<EOT > /home/$USER/application.properties
+          spring.application.name=studentanalyser
+          spring.data.mongodb.uri=mongodb://admin:MyStrongPassword123@localhost:27017/student-management?authSource=admin
+          spring.data.mongodb.database=student-management
+          server.port=8080
+          server.address=0.0.0.0
+          management.endpoints.web.exposure.include=*
+          management.endpoint.health.show-details=always
+          management.metrics.export.prometheus.enabled=true
+          aws.xray.enabled=true
             
           
           
-            # Kill old process if running
-            if pgrep -f "studentanalyser-0.0.1-SNAPSHOT.jar" > /dev/null; then
-            echo "🛑 Stopping old process..."
-            pkill -f "studentanalyser-0.0.1-SNAPSHOT.jar"
-            fi
+          # Kill old process if running
+          if pgrep -f "studentanalyser-0.0.1-SNAPSHOT.jar" > /dev/null; then
+          echo "🛑 Stopping old process..."
+          pkill -f "studentanalyser-0.0.1-SNAPSHOT.jar"
+          fi
             
             sleep 3
             echo "🚀 Starting new version..."
