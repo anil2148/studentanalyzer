@@ -18,5 +18,9 @@ public class StudentService {
         return studentRepository.findAll();
 
     }
+    public String saveAll(List<Student> students){
+        studentRepository.saveAll(students);
+        return "Save Data Successfully";
+    }
 
 }

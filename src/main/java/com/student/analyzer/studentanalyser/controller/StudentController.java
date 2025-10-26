@@ -18,6 +18,10 @@ public class StudentController {
     public List<Student> getAllStudents(){
         return studentService.getAllStudent();
     }
+    @PostMapping("/saveAll")
+    public String saveAll(@RequestBody List<Student> data){
+        return studentService.saveAll(data);
+    }
 
     @GetMapping("/getStudentsByCity")
     public Object getByDepartment(){
