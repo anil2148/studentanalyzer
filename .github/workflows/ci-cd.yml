@@ -58,9 +58,9 @@ jobs:
 
       - name: Deploy and Restart Application
         env:
-          HOST: ${{ secrets.EC2_HOST }}
-          USER: ${{ secrets.EC2_USER }}
-          MONGO_URI: ${{ secrets.MONGO_URI }}
+            HOST: ${{ secrets.EC2_HOST }}
+            USER: ${{ secrets.EC2_USER }}
+            MONGO_URI: ${{ secrets.MONGO_URI }}
         run: |
           echo "🚀 Deploying latest build to EC2 at $HOST..."
 
