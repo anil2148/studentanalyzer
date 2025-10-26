@@ -63,18 +63,16 @@ jobs:
             MONGO_URI: ${{ secrets.MONGO_URI }}
         run: |
           echo "🚀 Deploying latest build to EC2 at $HOST..."
-
-          # Copy the built JAR to EC2
+          
           scp -o StrictHostKeyChecking=no ./deploy/*.jar $USER@$HOST:/home/$USER/
-
-          # Connect to EC2 and configure + restart
-          ssh -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
-          set -e
-          echo "Creating application.properties dynamically..."
-
-          cat  /home/$USER/application.properties<<EOF>
+          
+          ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'REMOTE_SCRIPT'
+            set -e
+            echo "🛠 Creating application.properties dynamically..."
+          
+            cat > /home/ec2-user/application.properties <<EOF
           spring.application.name=studentanalyser
-          spring.data.mongodb.uri=mongodb://admin:MyStrongPassword123@localhost:27017/student-management?authSource=admin
+          spring.data.mongodb.uri='"${MONGO_URI}"'
           spring.data.mongodb.database=student-management
           server.port=8080
           server.address=0.0.0.0
@@ -82,20 +80,21 @@ jobs:
           management.endpoint.health.show-details=always
           management.metrics.export.prometheus.enabled=true
           aws.xray.enabled=true
-          <EOT>> 
+          EOF
+      
+          echo "🔍 Checking generated application.properties content:"
+          cat /home/ec2-user/application.properties
           
-          
-          # Kill old process if running
           if pgrep -f "studentanalyser-0.0.1-SNAPSHOT.jar" > /dev/null; then
           echo "🛑 Stopping old process..."
           pkill -f "studentanalyser-0.0.1-SNAPSHOT.jar"
           fi
-            
-            sleep 3
-            echo "🚀 Starting new version..."
-            nohup java -jar /home/$USER/$(ls -t /home/$USER/*.jar | head -n1) \
-            --spring.config.location=file:/home/$USER/application.properties \
-            > /home/$USER/app.log 2>&1 &
           
-            echo "✅ Application restarted successfully!"
-          EOF
+          sleep 3
+          echo "🚀 Starting new version..."
+          nohup java -jar /home/ec2-user/$(ls -t /home/ec2-user/*.jar | head -n1) \
+          --spring.config.location=file:/home/ec2-user/application.properties \
+          > /home/ec2-user/app.log 2>&1 &
+
+          echo "✅ Application restarted successfully!"
+          EOT
