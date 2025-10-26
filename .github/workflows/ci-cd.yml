@@ -62,9 +62,10 @@ jobs:
           USER: ${{ secrets.EC2_USER }}
           MONGO_URI: ${{ secrets.MONGO_URI }}
         run: |
-          scp -o StrictHostKeyChecking=no ./deploy/*.jar $USER@$HOST:/home/$USER/
+          scp -o StrictHostKeyChecking=no ./deploy/*.jar $USER@$HOST:/home/$USER/studentanalyser-0.0.1-SNAPSHOT.jar
           ssh -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
-            pkill -f studentanalyzer || true
             echo "spring.data.mongodb.uri=${MONGO_URI}" > /home/$USER/application.properties
-            nohup java -jar /home/$USER/$(ls /home/$USER/*.jar | sort | tail -n1) --spring.config.location=file:/home/$USER/application.properties > /home/$USER/app.log 2>&1 &
+            sudo systemctl daemon-reload
+            sudo systemctl restart studentanalyzer
+            sudo systemctl status studentanalyzer --no-pager
           EOF
