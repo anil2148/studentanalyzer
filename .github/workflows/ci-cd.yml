@@ -56,16 +56,30 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-      - name: Deploy and Restart Spring Boot App
+      - name: Deploy and Restart Spring Boot App with CloudWatch
         env:
           HOST: ${{ secrets.EC2_HOST }}
           USER: ${{ secrets.EC2_USER }}
           MONGO_URI: ${{ secrets.MONGO_URI }}
         run: |
-          scp -o StrictHostKeyChecking=no ./deploy/*.jar $USER@$HOST:/home/$USER/studentanalyser-0.0.1-SNAPSHOT.jar
-          ssh -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
+          echo "Deploying to EC2 at $HOST..."
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ./deploy/*.jar $USER@$HOST:/home/$USER/studentanalyser-0.0.1-SNAPSHOT.jar
+
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
             echo "spring.data.mongodb.uri=${MONGO_URI}" > /home/$USER/application.properties
+
+            # Restart Spring Boot systemd service
             sudo systemctl daemon-reload
             sudo systemctl restart studentanalyzer
+            echo "✅ Spring Boot service restarted."
+
+            # Restart CloudWatch Agent to refresh log streaming
+            if systemctl list-unit-files | grep -q amazon-cloudwatch-agent; then
+              sudo systemctl restart amazon-cloudwatch-agent
+              echo "✅ CloudWatch Agent restarted."
+            else
+              echo "⚠️ CloudWatch Agent not installed. Please install manually."
+            fi
+
             sudo systemctl status studentanalyzer --no-pager
           EOF
