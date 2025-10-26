@@ -82,7 +82,7 @@ jobs:
           management.endpoint.health.show-details=always
           management.metrics.export.prometheus.enabled=true
           aws.xray.enabled=true
-            
+          <EOT>> 
           
           
           # Kill old process if running
