@@ -72,7 +72,7 @@ jobs:
           
             cat > /home/ec2-user/application.properties <<EOF
           spring.application.name=studentanalyser
-          spring.data.mongodb.uri='"${MONGO_URI}"'
+          spring.data.mongodb.uri=${MONGO_URI}
           spring.data.mongodb.database=student-management
           server.port=8080
           server.address=0.0.0.0
