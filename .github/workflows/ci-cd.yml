@@ -83,7 +83,12 @@ jobs:
             management.metrics.export.prometheus.enabled=true
             aws.xray.enabled=true
             EOT
-  
+            echo "🔍 Checking generated application.properties content:"
+            echo "----------------------------------------------------"
+            cat /home/$USER/application.properties
+            echo "----------------------------------------------------"
+          
+          
             # Kill old process if running
             if pgrep -f "studentanalyser-0.0.1-SNAPSHOT.jar" > /dev/null; then
             echo "🛑 Stopping old process..."
