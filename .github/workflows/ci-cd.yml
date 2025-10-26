@@ -82,11 +82,12 @@ jobs:
             management.endpoint.health.show-details=always
             management.metrics.export.prometheus.enabled=true
             aws.xray.enabled=true
-            EOT
             echo "🔍 Checking generated application.properties content:"
             echo "----------------------------------------------------"
             cat /home/$USER/application.properties
             echo "----------------------------------------------------"
+            EOT
+            
           
           
             # Kill old process if running
