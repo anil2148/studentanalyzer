@@ -64,7 +64,7 @@ jobs:
         run: |
           echo "Deploying to EC2 at $HOST..."
           scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ./deploy/*.jar $USER@$HOST:/home/$USER/studentanalyser-0.0.1-SNAPSHOT.jar
-
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no src/main/resources/application.properties $USER@$HOST:/home/$USER/application.properties
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
             echo "spring.data.mongodb.uri=${MONGO_URI}" > /home/$USER/application.properties
 
