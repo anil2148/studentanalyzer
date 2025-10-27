@@ -83,14 +83,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.5.6</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <!-- Compiler Plugin -->
@@ -104,11 +96,11 @@
                 </configuration>
             </plugin>
 
-            <!-- Shade Plugin -->
+            <!-- ✅ Fixed Shade Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.4.1</version>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -119,7 +111,9 @@
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.student.analyzer.studentanalyser.StudentanalyserApplication</mainClass>
+                                    <manifestEntries>
+                                        <Main-Class>com.student.analyzer.studentanalyser.StudentanalyserApplication</Main-Class>
+                                    </manifestEntries>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -129,5 +123,6 @@
 
         </plugins>
     </build>
+
 
 </project>
